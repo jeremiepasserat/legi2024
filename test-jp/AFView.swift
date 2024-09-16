@@ -11,7 +11,7 @@ import SwiftData
 
 struct AFView: View {
     
-    @Environment(\.modelContext) private var modelContext
+//    @Environment(\.modelContext) private var modelContext
     @StateObject var viewModel = AFViewModel()
     @Query private var electionResultsByDepartement: [ElectionResultsByDepartement] = []
     
@@ -19,7 +19,7 @@ struct AFView: View {
         VStack {
             
             List {
-                ForEach(electionResultsByDepartement, id: \.codeDepartement){ result in
+                ForEach(electionResultsByDepartement.sorted { $0.codeDepartement < $1.codeDepartement }, id: \.codeDepartement){ result in
                     NavigationLink {
                         AFDetailView(dataObject: result)
                     } label: {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import InteractiveMap
+import SwiftData
 
 struct AFMapView: View {
     
@@ -20,6 +21,8 @@ struct AFMapView: View {
         clickedPath.name.isEmpty ? "" : "\(clickedPath.name.suffix(2))"
     }
     
+    @Query private var electionResultsByDepartement: [ElectionResultsByDepartement] = []
+
     
     var body: some View {
         
@@ -34,8 +37,9 @@ struct AFMapView: View {
                             .padding(.horizontal)
                             .padding(.vertical)
                         
-                        Button{
-                            print("Puuuuuuuuuuuu")
+                        NavigationLink {
+                          //  print("Puuuuuuuuuuuu")
+                            AFDetailView(dataObject: electionResultsByDepartement.filter({$0.libelleDepartement == departementName }).first)
                         } label: {
                             Text("Détail des résultats")
                         }

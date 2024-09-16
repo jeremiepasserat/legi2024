@@ -12,7 +12,7 @@ struct TestView: View {
     
     @StateObject var viewModel = AFViewModel()
     @Environment(\.modelContext) private var modelContext
-
+    
     var body: some View {
         
         NavigationView {
@@ -66,20 +66,21 @@ struct TestView: View {
                                 .padding(.vertical)
                         }
                     }
-
+                    
                 }
             }
             
         }
         .onAppear{
-//            Task {
-                self.viewModel.makeCall()
-                self.modelContext.insert(ElectionResultsByDepartement(codeDepartement: "", libelleDepartement: "", inscrits: 1, votants: 1, pourcentageVotants: 1.0, abstentions: 1, pourcentageAbstentions: 1.0, exprimes: 1, pourcentageExprimesInscrits: 1.0, pourcentageExprimesVotants: 1.0, blancs: 1, pourcentageBlancsInscrits: 1.0, pourcentageBlancsVotants: 1.0, nuls: 1, pourcentageNulsInscrits: 1.0, pourcentageNulsVotants: 1.0, resultatsParParti: [ResultatsParParti(id: 1, nuance: "", voix: 1, pourcentageVoixInscrits: 1.0, pourcentageVoixExprimes: 1.0)]))
+            self.viewModel.makeCall() {
                 for respons in viewModel.response {
+                    print("Respons : \(respons.codeDepartement)")
                     self.modelContext.insert(respons)
                 }
-                print("Done")
-//            }
+            }
+            //            self.modelContext.insert(ElectionResultsByDepartement(codeDepartement: "", libelleDepartement: "", inscrits: 1, votants: 1, pourcentageVotants: 1.0, abstentions: 1, pourcentageAbstentions: 1.0, exprimes: 1, pourcentageExprimesInscrits: 1.0, pourcentageExprimesVotants: 1.0, blancs: 1, pourcentageBlancsInscrits: 1.0, pourcentageBlancsVotants: 1.0, nuls: 1, pourcentageNulsInscrits: 1.0, pourcentageNulsVotants: 1.0, resultatsParParti: [ResultatsParParti(id: 1, nuance: "", voix: 1, pourcentageVoixInscrits: 1.0, pourcentageVoixExprimes: 1.0)]))
+            print("Done")
+            
         }
     }
 }

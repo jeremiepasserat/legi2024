@@ -20,7 +20,8 @@ class AFViewModel: ObservableObject {
         print("Ouiiiiiiiiiiiiii")
     }
     
-    func makeCall() {
+    
+    func makeCall(completion: @escaping () -> Void) {
         
         let url = "https://static.data.gouv.fr/resources/elections-legislatives-des-30-juin-et-7-juillet-2024-resultats-definitifs-du-1er-tour/20240710-171330/resultats-definitifs-par-departements.csv"
         
@@ -30,7 +31,7 @@ class AFViewModel: ObservableObject {
                     print("Fichier téléchargé à : \(fileURL)")
                     do {
                         let content = try String(contentsOf: fileURL, encoding: .utf8)
-                        print("Contenu du fichier : \(content)")
+                        //print("Contenu du fichier : \(content)")
                         let lines = content.components(separatedBy: .newlines)
                         var responseData: [ElectionResultsByDepartement] = []
                         var firstLine = false
@@ -45,6 +46,7 @@ class AFViewModel: ObservableObject {
                         self.response = responseData
                         //let newItem = Item(timestamp: Date())
                         self.isLoading = false
+                        completion()
                     } catch {
                         print("Erreur lors de la lecture du fichier : \(error)")
                     }

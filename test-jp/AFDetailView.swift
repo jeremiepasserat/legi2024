@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Charts
+
+
 struct AFDetailView: View {
     
     let dataObject: ElectionResultsByDepartement?
