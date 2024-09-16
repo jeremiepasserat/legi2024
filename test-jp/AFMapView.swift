@@ -25,7 +25,7 @@ struct AFMapView: View {
         
         VStack {
             
-            ZStack {
+            VStack {
                 if let departementName = departements[depName] {
                     
                     VStack {
@@ -45,13 +45,12 @@ struct AFMapView: View {
                 } else {
                     Text("Sélectionnez un département pour voir les résultats")
                         .font(.title)
-                    //                        .frame(height: 150, alignment: .top)
                         .padding(.horizontal)
                         .padding(.top)
                 }
             }
             .frame(height: 150, alignment: .top)
-            
+            .padding(.bottom, 45)            
             
             InteractiveMap(svgName: "depart") { pathData in // or just use $0
                 InteractiveShape(pathData)
@@ -64,71 +63,30 @@ struct AFMapView: View {
                     }
                 
             }
-            //            .border(.orange)
             .scaleEffect(currentZoom + totalZoom)
-            .offset(x: offset.width, y: offset.height)
-            //            .frame(maxWidth: .infinity, maxHeight: 250, alignment: .center)
+            .offset(x: offset.width)
             .gesture(
                 MagnifyGesture()
                     .onChanged { value in
                         print("Prout")
                         //                        currentZoom = value.magnification - 1
                         let zoomFactor = value.magnification - 1
-                        currentZoom = min(max(zoomFactor, 0.5 - totalZoom), 2.0 - totalZoom)
+                        currentZoom = min(max(zoomFactor, 0.5 - totalZoom), 1.5 - totalZoom)
                     }
                     .onEnded { value in
-                        totalZoom += currentZoom
-                        if totalZoom < 0.5 {
-                            totalZoom = 0.5
-                        }  else if totalZoom > 2.0 {
-                            totalZoom = 2.0
-                        }
                         currentZoom = 0
                     }
             )
-            //            .simultaneousGesture(
-            //                DragGesture()
-            //                    .onChanged { value in
-            //                        print("Pétoule")
-            //                        let speedFactor: CGFloat = 0.25
-            //                        if totalZoom > 1.0 {
-            //                            offset = CGSize(
-            //                                width: (lastOffset.width + value.translation.width) * speedFactor,
-            //                                height: lastOffset.height + value.translation.height  * speedFactor
-            //                            )
-            //                        }
-            //                    }
-            //                    .onEnded { value in
-            //                        lastOffset = offset
-            //                    }
-            //            )
             .simultaneousGesture(
                 DragGesture()
                     .onChanged { value in
                         print("Pétoule")
-                        
-                        // Facteur de vitesse pour ajuster la vitesse de déplacement
                         let speedFactor: CGFloat = 0.25
-                        
-                        // Taille de l'image visible dans la vue
-                        let imageWidth = 200.0  // Par exemple
-                        let imageHeight = 200.0 // Par exemple
-                        
-                        // Limite du mouvement en fonction de la taille de l'image et du zoom
-                        let maxOffsetX = (imageWidth * (totalZoom - 1)) / 2
-                        let maxOffsetY = (imageHeight * (totalZoom - 1)) / 2
-                        
                         if totalZoom > 1.0 {
-                            var newOffset = CGSize(
+                            offset = CGSize(
                                 width: (lastOffset.width + value.translation.width) * speedFactor,
-                                height: (lastOffset.height + value.translation.height) * speedFactor
+                                height: lastOffset.height + value.translation.height  * speedFactor
                             )
-                            
-                            // Limiter le déplacement à la zone définie
-                            newOffset.width = min(max(newOffset.width, -maxOffsetX), maxOffsetX)
-                            newOffset.height = min(max(newOffset.height, -maxOffsetY), maxOffsetY)
-                            
-                            offset = newOffset
                         }
                     }
                     .onEnded { value in

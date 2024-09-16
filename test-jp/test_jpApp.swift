@@ -13,7 +13,9 @@ struct test_jpApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
-            ElaboratedItem.self
+            ElaboratedItem.self,
+            ElectionResultsByDepartement.self,
+            ResultatsParParti.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

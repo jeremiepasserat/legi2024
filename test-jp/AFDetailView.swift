@@ -22,8 +22,6 @@ struct AFDetailView: View {
                     Text("Nombre de votants :\(dataObject.votants)\n")
                     
                     let sortedData = dataObject.resultatsParParti.sorted { $0.voix > $1.voix }
-
-//                    if let sortedData {
                         ForEach(sortedData){ resultat in
                             Text("parti \(resultat.nuance)")
                             Text("nombre de voix \(resultat.voix)")
@@ -40,8 +38,6 @@ struct AFDetailView: View {
                         .frame(height: 300)
                         .padding()
                     }
-                        
-//                }
             }
         }
     }
