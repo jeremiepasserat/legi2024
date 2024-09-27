@@ -9,7 +9,7 @@ import SwiftUI
 import InteractiveMap
 import SwiftData
 
-struct AFMapView: View {
+struct DepartmentMapView: View {
     
     @State private var clickedPath = PathData()
     @State private var currentZoom = 0.0
@@ -21,7 +21,7 @@ struct AFMapView: View {
         clickedPath.name.isEmpty ? "" : "\(clickedPath.name.suffix(2))"
     }
     
-    @Query private var electionResultsByDepartement: [ElectionResultsByDepartement] = []
+    @Query private var electionResultsByDepartement: [ResultDepartment] = []
 
     
     var body: some View {
@@ -39,7 +39,7 @@ struct AFMapView: View {
                         
                         NavigationLink {
                           //  print("Puuuuuuuuuuuu")
-                            AFDetailView(dataObject: electionResultsByDepartement.filter({$0.libelleDepartement == departementName }).first)
+                            DepartmentDetailView(dataObject: electionResultsByDepartement.filter({$0.libelleDepartement == departementName }).first)
                         } label: {
                             Text("Détail des résultats")
                         }
@@ -216,5 +216,5 @@ struct AFMapView: View {
 }
 
 #Preview {
-    AFMapView()
+    DepartmentMapView()
 }

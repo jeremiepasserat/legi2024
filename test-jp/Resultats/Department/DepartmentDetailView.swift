@@ -7,11 +7,13 @@
 
 import SwiftUI
 import Charts
+import SwiftData
 
-
-struct AFDetailView: View {
+struct DepartmentDetailView: View {
     
-    let dataObject: ElectionResultsByDepartement?
+    let dataObject: ResultDepartment?
+    @Query(sort: \ResultCirconscription.codeCirconscriptionLegislative)
+    private var electionResultsByCirconscription: [ResultCirconscription] = []
     
     var body: some View {
         if let dataObject {
@@ -22,6 +24,12 @@ struct AFDetailView: View {
                     
                     Text("Nombre d'inscrits :\(dataObject.inscrits)")
                     Text("Nombre de votants :\(dataObject.votants)\n")
+                    
+                    NavigationLink{
+                        CirconscriptionView(circonscriptionResults: electionResultsByCirconscription.filter{$0.libelleDepartement == dataObject.libelleDepartement})
+                    } label: {
+                        Text("Voir le détail des circonscriptions")
+                    }
                     
                     let sortedData = dataObject.resultatsParParti.sorted { $0.voix > $1.voix }
                         ForEach(sortedData){ resultat in
@@ -46,5 +54,5 @@ struct AFDetailView: View {
 }
 
 #Preview {
-    AFDetailView(dataObject: nil)
+    DepartmentDetailView(dataObject: nil)
 }

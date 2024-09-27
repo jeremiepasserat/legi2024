@@ -9,11 +9,11 @@ import SwiftUI
 import InteractiveMap
 import SwiftData
 
-struct AFView: View {
+struct DepartmentView: View {
     
-//    @Environment(\.modelContext) private var modelContext
-    @StateObject var viewModel = AFViewModel()
-    @Query private var electionResultsByDepartement: [ElectionResultsByDepartement] = []
+//    @StateObject var viewModel = ResultatsViewModel()
+    @Query(sort: \ResultDepartment.codeDepartement)
+    private var electionResultsByDepartement: [ResultDepartment] = []
     
     var body: some View {
         VStack {
@@ -21,7 +21,7 @@ struct AFView: View {
             List {
                 ForEach(electionResultsByDepartement.sorted { $0.codeDepartement < $1.codeDepartement }, id: \.codeDepartement){ result in
                     NavigationLink {
-                        AFDetailView(dataObject: result)
+                        DepartmentDetailView(dataObject: result)
                     } label: {
                         HStack{Text(result.codeDepartement) + Text (" ") + Text (result.libelleDepartement)}
                             .padding(.vertical)
@@ -34,5 +34,5 @@ struct AFView: View {
 
 
 #Preview {
-    AFView()
+    DepartmentView()
 }

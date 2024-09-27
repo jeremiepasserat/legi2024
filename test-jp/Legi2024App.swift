@@ -1,5 +1,5 @@
 //
-//  test_jpApp.swift
+//  Legi2024App.swift
 //  test-jp
 //
 //  Created by Jérémie on 26/08/2024.
@@ -9,13 +9,14 @@ import SwiftUI
 import SwiftData
 
 @main
-struct test_jpApp: App {
+struct Legi2024App: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
-            ElaboratedItem.self,
-            ElectionResultsByDepartement.self,
-            ResultatsParParti.self
+            ResultDepartment.self,
+            ResultatsParParti.self,
+            ResultCirconscription.self,
+            ResultParCandidat.self,
+            ResultDepute.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -28,7 +29,7 @@ struct test_jpApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TestView()
+            DataLoadingView()
         }
         .modelContainer(sharedModelContainer)
     }
