@@ -45,6 +45,72 @@ struct DeputesView: View {
                             }
                             
                             HStack{
+                                if result.groupe.lowercased().starts(with: "socialistes") {
+                                    Image("ps")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "droite") {
+                                    Image("lr")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "ensemble") {
+                                    Image("epr")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "rassemblement") {
+                                    Image("rn")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "la france") {
+                                    Image("lfi")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "horizons") {
+                                    Image("hei")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "gauche démocrate") {
+                                    Image("gdr")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "libertés") {
+                                    Image("liot")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "udr") {
+                                    Image("udr")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "écologiste") {
+                                    Image("es")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                                if result.groupe.lowercased().starts(with: "les démocrates") {
+                                    Image("ld")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
                                 Text ("\(result.groupe.replacingOccurrences(of: "\"", with: ""))")
                             }
                         }
